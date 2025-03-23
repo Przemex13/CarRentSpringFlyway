@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: CarRentSpringFlyway
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: root
+    password: haslo123
+  # Ustawienia bazy H2
+  h2:
+    console:
+      enabled: true
+      path: /console
+  # Ustawienia JPA
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+    # Konfiguracja dla H2 z Flyway
+    hibernate:
+      ddl-auto: update
+      database-platform: org.hibernate.dialect.H2Dialect
+  # Flyway konfiguracja
+  flyway:
+    enabled: true
+    locations: classpath:db.migration-create-tables, db.migration-add-relations, db.migration-add-records
+#    locations: classpath:db.migration, db.migration/h2test
