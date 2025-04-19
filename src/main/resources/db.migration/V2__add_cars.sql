@@ -1,0 +1,1 @@
+INSERT INTO car_models (BRAND, MODEL_NAME, YEAR_OF_PRODUCTION, COLOUR) VALUES ('Honda', 'Akord', 2025, 'Żółty');
