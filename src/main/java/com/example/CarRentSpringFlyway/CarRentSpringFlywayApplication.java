@@ -9,4 +9,5 @@ public class CarRentSpringFlywayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CarRentSpringFlywayApplication.class, args);
 	}
+
 }

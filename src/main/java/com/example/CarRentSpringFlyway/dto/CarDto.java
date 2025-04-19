@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarModelDto {
+public class CarDto {
 
     private String brand;
     private String modelName;
+    private String registrationNumber;
     private int yearOfProduction;
     private String colour;
 

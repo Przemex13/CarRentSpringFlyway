@@ -1,10 +1,10 @@
 package com.example.CarRentSpringFlyway.repository;
 
-import com.example.CarRentSpringFlyway.entity.CarModel;
+import com.example.CarRentSpringFlyway.entity.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CarModelRepository extends JpaRepository<CarModel, Long> {
+public interface CarRepository extends JpaRepository<Car, Long> {
 
 }
