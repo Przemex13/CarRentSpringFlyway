@@ -56,7 +56,7 @@ public class CarController {
     //    add new car
 
     @PostMapping("/add")
-    public ResponseEntity<Car> addCarModel (@RequestBody CarDto dto){
+    public ResponseEntity<Car> addCar (@RequestBody CarDto dto){
 
         Car car = Car.builder()
                 .brand(dto.getBrand())
@@ -101,7 +101,7 @@ public class CarController {
 
 //      update car with lambda
 
-    @PutMapping("updateTest/{id}")
+    @PutMapping("update/{id}")
     Car updateCarWithLambda(@RequestBody Car modifiedCar,@PathVariable Long id){
 
         return carService.findCarById(id)
