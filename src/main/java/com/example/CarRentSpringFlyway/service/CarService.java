@@ -5,6 +5,7 @@ import com.example.CarRentSpringFlyway.repository.CarRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class CarService {
@@ -23,5 +24,9 @@ public class CarService {
 
     public void deleteCar (Long id){
         carRepository.deleteById(id);
+    }
+
+    public Optional<Car> findCarById (Long carId){
+        return carRepository.findById(carId);
     }
 }

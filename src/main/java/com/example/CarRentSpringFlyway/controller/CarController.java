@@ -2,6 +2,8 @@ package com.example.CarRentSpringFlyway.controller;
 
 import com.example.CarRentSpringFlyway.dto.CarDto;
 import com.example.CarRentSpringFlyway.entity.Car;
+import com.example.CarRentSpringFlyway.exceptions.CarNotFoundException;
+import com.example.CarRentSpringFlyway.repository.CarRepository;
 import com.example.CarRentSpringFlyway.service.CarService;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,28 +12,46 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @RestController
 @RequestMapping("/cars")
 public class CarController {
 
+    private final CarRepository carRepository;
     private final CarService carService;
     private static final Logger logger = LoggerFactory.getLogger(CarController.class);
 
-    public CarController(CarService carService) {
-        this.carService = carService;
 
+    public CarController(CarService carService, CarRepository carRepository) {
+        this.carService = carService;
+        this.carRepository = carRepository;
     }
 
-//    get
+    //    get
 
     @GetMapping("/przemas")
     String metoda(){
         return "Przemo mistrz";
     }
 
+    //    get car by id
 
+    @GetMapping("/{id}")
+    public ResponseEntity <Car> showCar (@PathVariable Long id){
+
+        return ResponseEntity.ok(carService.findCarById(id)
+                .orElseThrow(() -> new CarNotFoundException(id)));
+    }
+
+    //    get all cars
+
+    @GetMapping("/all")
+    List<Car> allCars(){
+        return  carRepository.findAll();
+    }
 
     //    add new car
 
@@ -51,30 +71,48 @@ public class CarController {
         return ResponseEntity.ok(saved);
     }
 
+
     //    delete car
+
     @DeleteMapping("delete/{id}")
     void deleteCar (@PathVariable Long id){
         carService.deleteCar(id);
     }
 
+    //    update car with Builder
 
-    //    update car
-    @PutMapping("update/{id}")
-    ResponseEntity<Car>updateCar(@RequestBody Car modifiedCar,@PathVariable Long id){
+//    @PutMapping("update/{id}")
+//    ResponseEntity<Car>updateCar(@RequestBody Car modifiedCar,@PathVariable Long id){
+//
+//        Car car = Car.builder()
+//                .id(id)
+//                .brand(modifiedCar.getBrand())
+//                .modelName(modifiedCar.getModelName())
+//                .registrationNumber(modifiedCar.getRegistrationNumber())
+//                .yearOfProduction(modifiedCar.getYearOfProduction())
+//                .colour(modifiedCar.getColour())
+//                .build();
+//
+//        Car carUpdated = carService.saveCar(car);
+//
+//        return ResponseEntity.ok(carUpdated);
+//    }
 
-        Car car = Car.builder()
-                .id(id)
-                .brand(modifiedCar.getBrand())
-                .modelName(modifiedCar.getModelName())
-                .registrationNumber(modifiedCar.getRegistrationNumber())
-                .yearOfProduction(modifiedCar.getYearOfProduction())
-                .colour(modifiedCar.getColour())
-                .build();
 
-        Car carUpdated = carService.saveCar(car);
+//      update car with lambda
 
-        return ResponseEntity.ok(carUpdated);
+    @PutMapping("updateTest/{id}")
+    Car updateCarWithLambda(@RequestBody Car modifiedCar,@PathVariable Long id){
+
+        return carService.findCarById(id)
+                .map(car ->{
+                    car.setBrand(modifiedCar.getBrand());
+                    car.setModelName(modifiedCar.getModelName());
+                    car.setRegistrationNumber(modifiedCar.getRegistrationNumber());
+                    car.setYearOfProduction(modifiedCar.getYearOfProduction());
+                    car.setColour(modifiedCar.getColour());
+                    return carService.saveCar(car);
+                })
+                .orElseThrow(() -> new CarNotFoundException(id));
     }
-
-
 }
