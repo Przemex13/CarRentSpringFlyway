@@ -1,4 +1,7 @@
 package com.example.CarRentSpringFlyway.repository;
 
-public interface RentalRepository {
+import com.example.CarRentSpringFlyway.entity.Rental;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RentalRepository extends JpaRepository<Rental, Long> {
 }

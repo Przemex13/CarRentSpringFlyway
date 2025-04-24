@@ -20,5 +20,7 @@ public class Car {
     private String registrationNumber;
     private int yearOfProduction;
     private String colour;
+    @Enumerated(EnumType.STRING)
+    private CarStatus carStatus;
 
 }
