@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Embeddable
-class Audit {
+public class Audit {
     @Column(name = "created_on")
     private LocalDateTime createdOn;
     @Column(name= "updated_on")

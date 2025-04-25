@@ -18,8 +18,8 @@ public class Rental {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long CarId;
-    private Long RenterId;
+    private Long carId;
+    private Long renterId;
 
     public Audit audit = new Audit();
 
