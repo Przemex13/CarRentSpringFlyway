@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -20,6 +22,9 @@ public class Rental {
 
     private Long carId;
     private Long renterId;
+
+    private LocalDate rentDate;
+    private LocalDate returnDate;
 
     public Audit audit = new Audit();
 

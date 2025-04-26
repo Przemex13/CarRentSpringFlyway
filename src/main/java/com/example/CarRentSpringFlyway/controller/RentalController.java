@@ -56,6 +56,8 @@ public class RentalController {
         Rental rental = Rental.builder()
                 .carId(rentalDto.getCarId())
                 .renterId(rentalDto.getRenterId())
+                .rentDate(rentalDto.getRentDate())
+                .returnDate(rentalDto.getReturnDate())
                 .audit(rentalDto.getAudit())
                 .build();
 
@@ -76,6 +78,8 @@ public class RentalController {
                 .map(rental ->{
                     rental.setId(modifiedRental.getId());
                     rental.setCarId(modifiedRental.getCarId());
+                    rental.setRentDate(modifiedRental.getRentDate());
+                    rental.setReturnDate(modifiedRental.getReturnDate());
                     rental.setAudit(modifiedRental.getAudit());
                     return rentalService.saveRental(rental);
                 })
